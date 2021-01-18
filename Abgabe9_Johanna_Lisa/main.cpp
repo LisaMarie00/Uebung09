@@ -17,18 +17,18 @@ int main(int argc, char* argv[])
             std::cout << "Help window:\n";
             std::cout << "-h / --help: opens this help window\n";
             std::cout << "-x [x1..xn]: the sequence of coin toss\n";
-            std::cout << "-abn / --a(begin->n) [probability out of [0,1]]: the probability to start with the fair coin\n";
-            std::cout << "-ac /--a(k->q) [probability out of [0,1]]: the probability to change the coins\n";
-            std::cout << "-pg(0) [probability out of [0,1]]: the probability to get number under the condition you play with the unfair coin\n";
+            std::cout << "-abn / --abegin->n [probability out of [0,1]]: the probability to start with the fair coin\n";
+            std::cout << "-ac /--ak->q [probability out of [0,1]]: the probability to change the coins\n";
+            std::cout << "-pg0 [probability out of [0,1]]: the probability to get number under the condition you play with the unfair coin\n";
             return 0;
         }
     }
     std::string x = "-x";
     std::string a = "-abn";
-    std::string abn = "--a(begin->n)";
+    std::string abn = "--abegin->n";
     std::string ac = "-ac";
-    std::string akq = "--a(k->q)";
-    std::string pg = "-pg(0)";
+    std::string akq = "--ak->q";
+    std::string pg = "-pg0";
     std::string xstr;
     std::string abegstr;
     std::string achstr;
@@ -98,7 +98,7 @@ int main(int argc, char* argv[])
         }
     }
 
-    if (pgstr.size() || abegstr.size() || xstr.size() || achstr.size()) {
+    if (!pgstr.size() || !abegstr.size() || !xstr.size() || !achstr.size()) {
         std::cerr << "something important is not given.\n use -h or --help to open the help window\n";
         return 1;
     }
