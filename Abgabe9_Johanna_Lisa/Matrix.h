@@ -7,7 +7,7 @@ class Matrix {
   
 public: 
     
-    using Array = std::vector<int>; //row
+    using Array = std::vector<double>; //row
     using Matrixtype = std::vector<Array>; //column
     
     /**
@@ -18,22 +18,12 @@ public:
     /**
      * sets the given value at pos Dij
      */
-    void setValue(int i, int j, int value);
+    void setValue(int i, int j, double value);
     
     /**
      * returns the value at pos Dij
      */
     int getValue(int i, int j);
-    
-    /**
-     * returns the number of rows
-     */
-    size_t getRowNum();
-    
-    /**
-     * returns the number of columns
-     */
-    size_t getColumnNum();
     
 private:
     
@@ -50,7 +40,7 @@ Matrix::Matrix(int size_s, int size_p) {
     }
 }
 
-void Matrix::setValue(int i, int j, int value) {
+void Matrix::setValue(int i, int j, double value) {
     matrix_[i][j] = value;
 }
 

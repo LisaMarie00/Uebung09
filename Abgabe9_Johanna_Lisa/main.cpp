@@ -5,6 +5,7 @@
 #include<cassert>
 #include<sstream>
 
+#include "Viterbi.h"
 
 int main(int argc, char* argv[])
 {
@@ -102,7 +103,13 @@ int main(int argc, char* argv[])
         return 1;
     }
     
-    //TODO use viterbi
-    
-    return 0;
+    Viterbi viterbi(xstr, abeginn, achange, pg0);
+    if (viterbi.prove()) {
+        std::string q = viterbi.execute();
+        std::cout << "computed path: \n" << q << std::endl;
+        return 0;
+    } else {
+        std::cerr << "sequence can' include any other char than 0 or 1\n";
+        return 1;
+    }
 } 
