@@ -1,5 +1,7 @@
 #include "Viterbi.h"
 #include "Matrix.h"
+
+#include <iostream>
 #include <cmath>
 #include <algorithm>
 
@@ -56,46 +58,45 @@ std::string Viterbi::execute() {
     int qi;
     if (matrix.getValue(0, x_.size()) > matrix.getValue(1, x_.size())) {
         qi = 0;
-        q.push_back('n');
+        q = "n" + q;
     } else {
         qi = 1;
-        q.push_back('g');
+        q = "g" + q;
     }
     for (int j = x_.size() - 1; j > 0; j--) {
         if (qi == 0) {
             double n = log10(0.5) + matrix.getValue(0, j-1) + log10(1 - ac_);
-            double g = log10(0.5) + matrix.getValue(0, j-1) + log10(ac_);
-            double val = matrix.getValue(0, j);
-            if (fabs(val - n) < fabs(val - g)) {
-                q.push_back('n');
+            double g = log10(0.5) + matrix.getValue(1, j-1) + log10(ac_);
+            double val = matrix.getValue(qi, j);
+            if (std::fabs(val - n) < std::fabs(val - g)) {
+                q = "n" + q;
             } else {
-                q.push_back('g');
+                q = "g" + q;
                 qi = 1;
             }
         } else {
             if (x_.at(j-1) == '0') {
                 double n = log10(pg0_) + matrix.getValue(0, j-1) + log10(ac_);
-                double g = log10(pg0_) + matrix.getValue(0, j-1) + log10(1 - ac_);
-                double val = matrix.getValue(1, j);
-            if (fabs(val - n) < fabs(val - g)) {
-                q.push_back('n');
+                double g = log10(pg0_) + matrix.getValue(1, j-1) + log10(1 - ac_);
+                double val = matrix.getValue(qi, j);
+            if (std::fabs(val - n) < std::fabs(val - g)) {
+                q = "n" + q;
                 qi = 0;
             } else {
-                q.push_back('g');
+                q = "g" + q;
             }
             } else {
-                double n = log10(1 - pg0_) + matrix.getValue(0, j-1) + log10(ac_);
-                double g = log10(1 - pg0_) + matrix.getValue(0, j-1) + log10(1 - ac_);
-                double val = matrix.getValue(1, j);
-                if (fabs(val - n) < fabs(val - g)) {
-                    q.push_back('n');
+                long double n = log10(1 - pg0_) + matrix.getValue(0, j-1) + log10(ac_);
+                long double g = log10(1 - pg0_) + matrix.getValue(1, j-1) + log10(1 - ac_);
+                double val = matrix.getValue(qi, j);
+            if (std::fabs(val - n) < std::fabs(val - g)) {
+                    q = "n" + q;
                     qi = 0;
                 } else {
-                    q.push_back('g');
+                    q = "g" + q;
                 }
             }
         }
     }
-    std::reverse(q.begin(), q.end());
     return q;
 }

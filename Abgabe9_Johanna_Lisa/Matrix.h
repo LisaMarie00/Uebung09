@@ -23,7 +23,7 @@ public:
     /**
      * returns the value at pos Dij
      */
-    int getValue(int i, int j);
+    double getValue(int i, int j);
     
 private:
     
@@ -44,7 +44,7 @@ void Matrix::setValue(int i, int j, double value) {
     matrix_[i][j] = value;
 }
 
-int Matrix::getValue(int i, int j) {
+double Matrix::getValue(int i, int j) {
     return matrix_[i][j];
 }
 
